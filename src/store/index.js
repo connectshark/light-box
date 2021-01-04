@@ -22,9 +22,9 @@ export default new Vuex.Store({
   },
   actions: {
     init (context) {
-      axios.get('https://dog.ceo/api/breeds/image/random/10')
+      axios.get('https://picsum.photos/v2/list?limit=10')
         .then(res => {
-          context.commit('setImages', res.data.message)
+          context.commit('setImages', res.data)
         })
     }
   },

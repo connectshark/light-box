@@ -2,7 +2,7 @@
   <div class="home">
     <div class="gallery">
       <pic v-for="(img, index) in getPictureList" :key="index"
-      :imgSrc="img"
+      :imgSrc="img.download_url"
       :url="index"/>
     </div>
   </div>

@@ -4,7 +4,7 @@
       <span class="material-icons icon">chevron_left</span>
     </div>
     <figure class="pic-place">
-      <img :src="mainImage" alt="img">
+      <img :src="mainImage.download_url" alt="img">
     </figure>
     <div class="page-btn" @click="changeImage(1)">
       <span class="material-icons icon">chevron_right</span>
