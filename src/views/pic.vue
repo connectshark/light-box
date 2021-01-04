@@ -32,6 +32,16 @@ export default {
     mainImage () {
       return this.$store.state.images[this.$route.params.pic]
     }
+  },
+  mounted () {
+    if (this.$route.meta.lightBox) {
+      this.$store.commit('increaseCount')
+    }
+  },
+  updated () {
+    if (this.$route.meta.lightBox) {
+      this.$store.commit('increaseCount')
+    }
   }
 }
 </script>

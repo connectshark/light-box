@@ -24,14 +24,6 @@ const routes = [
     meta: {
       type: 'content',
       lightBox: false
-    },
-    beforeEnter: (to, from, next) => {
-      if (from.meta.type === 'container') {
-        to.matched[0].components.lightBox = to.matched[0].components.default
-        to.matched[0].components.default = from.matched[0].components.default
-        to.meta.lightBox = true
-      }
-      next()
     }
   },
   {
@@ -48,3 +40,25 @@ const router = new VueRouter({
 })
 
 export default router
+
+router.beforeEach((to, from, next) => {
+  if (from.matched.length) {
+    const fromMatch = from.matched[0]
+    const toMatch = to.matched[0]
+    let defaultComponent = null
+    if (fromMatch.meta.type === 'container' && to.meta.type === 'content') {
+      defaultComponent = fromMatch.components.default
+    } else if (fromMatch.components.lightBox) {
+      defaultComponent = fromMatch.components.default
+      fromMatch.components.default = fromMatch.components.lightBox
+      fromMatch.components.lightBox = null
+      fromMatch.meta.lightBox = false
+    }
+    if (defaultComponent && to.meta.type === 'content') {
+      toMatch.components.lightBox = toMatch.components.default
+      toMatch.components.default = defaultComponent
+      to.meta.lightBox = true
+    }
+  }
+  next()
+})

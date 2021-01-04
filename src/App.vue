@@ -6,7 +6,7 @@
     </div>
     <router-view/>
     <div class="light-box" v-show="this.$route.meta.lightBox">
-      <div class="btn">
+      <div class="btn" @click="backHandler">
         <span class="material-icons icon">close</span>
       </div>
       <div class="content">
@@ -18,6 +18,13 @@
 
 <script>
 export default {
+  methods: {
+    backHandler () {
+      const count = this.$store.state.backCount * -1
+      this.$router.go(count)
+      this.$store.commit('resetCount')
+    }
+  },
   created () {
     this.$store.dispatch('init')
   }
@@ -63,6 +70,7 @@ export default {
     left: 10%;
     width: 30px;
     height: 30px;
+    z-index: 3;
     .icon{
       font-size: 30px;
     }
