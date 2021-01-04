@@ -1,18 +1,34 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="gallery">
+      <pic v-for="(img, index) in getPictureList" :key="index"
+      :imgSrc="img"
+      :url="index"/>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import pic from '../components/pic'
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    pic
+  },
+  computed: {
+    getPictureList () {
+      return this.$store.state.images
+    }
   }
 }
 </script>
+<style lang="scss" scoped>
+.home{
+  .gallery{
+    width: 90%;
+    margin: auto;
+    column-count: 1;
+    column-rule: 10px;
+  }
+}
+</style>

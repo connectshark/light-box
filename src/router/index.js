@@ -10,9 +10,29 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
   {
-    path: '/pic/:id',
+    path: '/picList',
+    name: 'picList',
+    component: () => import('../views/picList.vue'),
+    meta: {
+      type: 'container'
+    }
+  },
+  {
+    path: '/pic/:pic',
     name: 'picture',
-    component: () => import('../views/pic.vue')
+    component: () => import('../views/pic.vue'),
+    meta: {
+      type: 'content',
+      lightBox: false
+    },
+    beforeEnter: (to, from, next) => {
+      if (from.meta.type === 'container') {
+        to.matched[0].components.lightBox = to.matched[0].components.default
+        to.matched[0].components.default = from.matched[0].components.default
+        to.meta.lightBox = true
+      }
+      next()
+    }
   },
   {
     path: '*',
